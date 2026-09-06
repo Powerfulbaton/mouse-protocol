@@ -64,6 +64,7 @@ export const VENDOR_ID = {
   lamzu: 0x373e,
   attackshark: 0x373e,
   logitech: 0x046d,
+  redragon: 0x04d9,
   orbital: 0x1915,
   razer: 0x1532,
   teevolution: 0x3554,
