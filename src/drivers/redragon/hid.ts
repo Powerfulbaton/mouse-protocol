@@ -2,6 +2,7 @@ import type { MouseStatus } from "../mouse-types.ts";
 import { VENDOR_ID } from "../vendors.ts";
 
 const PRODUCT_ID = 0xfc61;
+const REPORT_ID = 0x02;
 const OP_LOCK = 0xf5;
 
 export class RedragonM612HidClient {
@@ -43,7 +44,7 @@ export class RedragonM612HidClient {
     return {
       brand: "Redragon",
       name: this.displayName(),
-      dpi: 800,
+      dpi: 500,
       pollingRateHz: 1000,
       supportedPollingRates: [125, 250, 500, 1000],
       batteryPercent: null,
@@ -62,12 +63,43 @@ export class RedragonM612HidClient {
 
     await this.open();
 
+    // Unlock configuration
+    await this.device.sendFeatureReport(
+      REPORT_ID,
+      new Uint8Array([
+        OP_LOCK,
+        0x00,
+        0x00,
+        0x00,
+        0x00,
+        0x00,
+        0x00,
+        0x00,
+        0x00,
+        0x00,
+        0x00,
+        0x00,
+        0x00,
+        0x00,
+        0x00,
+      ]),
+    );
+
+    const dpiRaw: Record<number, number> = {
+      500: 0x000e,
+      1000: 0x001b,
+      2000: 0x0035,
+      3000: 0x004f,
+      4000: 0x006a,
+    };
+
+    const raw = dpiRaw[dpi];
+    const lo = raw & 0xff;
+    const hi = (raw >> 8) & 0xff;
+
     const offsets = [0x44, 0x4a, 0x50, 0x56, 0x5c];
 
     for (const offset of offsets) {
-      const lo = dpi & 0xff;
-      const hi = (dpi >> 8) & 0xff;
-
       const report = new Uint8Array([
         0xf3,
         offset,
@@ -88,6 +120,28 @@ export class RedragonM612HidClient {
 
       await this.device.sendFeatureReport(REPORT_ID, report);
     }
+
+    // Lock configuration
+    await this.device.sendFeatureReport(
+      REPORT_ID,
+      new Uint8Array([
+        OP_LOCK,
+        0x01,
+        0x00,
+        0x00,
+        0x00,
+        0x00,
+        0x00,
+        0x00,
+        0x00,
+        0x00,
+        0x00,
+        0x00,
+        0x00,
+        0x00,
+        0x00,
+      ]),
+    );
 
     return dpi;
   }
