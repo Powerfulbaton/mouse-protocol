@@ -92,7 +92,8 @@ export const VENDOR_ID = {
   gloriousO3: 0x3794, // Model O3 Wireless / receiver (newer CORE-v2 generation)
   mchose: 0x3837,
   ksnakeUsb: 0xa8a4, // K-snake X11 wired
-  ksnakeDongle: 0xa8a5, // K-snake X11 2.4 GHz dongle
+  ksnakeDongle: 0xa8a5,// K-snake X11 2.4 GHz dongle
+  redragon: 0x04d9,
 } as const;
 
 /**
