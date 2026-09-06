@@ -2,7 +2,7 @@ import type { MouseStatus } from "../mouse-types.ts";
 import { VENDOR_ID } from "../vendors.ts";
 
 const PRODUCT_ID = 0xfc61;
-const REPORT_ID = 0x02;
+const OP_LOCK = 0xf5;
 
 export class RedragonM612HidClient {
   readonly pollIntervalMs = 0;
