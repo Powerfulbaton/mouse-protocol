@@ -466,4 +466,5 @@ export const SUPPORTED_HID_FILTERS: HIDDeviceFilter[] = [
   // both the wired USB VID and the 2.4 GHz dongle VID.
   { vendorId: VENDOR_ID.ksnakeUsb, productId: 0x2255, usagePage: 0xff01, usage: 0x10 },
   { vendorId: VENDOR_ID.ksnakeDongle, productId: 0x2255, usagePage: 0xff01, usage: 0x10 },
+  { vendorId: VENDOR_ID.redragon, productId: 0xfc61 },
 ];
