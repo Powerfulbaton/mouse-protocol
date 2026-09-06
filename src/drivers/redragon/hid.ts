@@ -53,6 +53,7 @@ export class RedragonM612HidClient {
       connectionType: "Wired",
       connectionDetail: "Wired USB · write-only config",
       firmware: [],
+      liftOffDistance: null,
     };
   }
 
