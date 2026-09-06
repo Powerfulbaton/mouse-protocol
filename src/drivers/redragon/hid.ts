@@ -34,7 +34,7 @@ export class RedragonM612HidClient {
   }
 
   getDpiOptions(): number[] {
-    return [400, 800, 1600, 2400, 3200, 6400];
+    return [500, 1000, 2000, 3000, 4000];
   }
 
   async readStatus(): Promise<MouseStatus> {
